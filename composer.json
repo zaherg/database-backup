@@ -1,0 +1,30 @@
+{
+    "name": "zaher/database-backup",
+    "description": "This is just a small CLI app which will create a backup from your database",
+    "type": "project",
+    "require": {
+        "league/flysystem": "^1.0",
+        "roave/security-advisories": "dev-master",
+        "symfony/console": "^3.3",
+        "symfony/finder": "^3.3",
+        "symfony/process": "^3.3",
+        "symfony/yaml": "^3.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mhd Zaher Ghaibeh",
+            "email": "z@zah.me"
+        }
+    ],
+    "require-dev": {
+        "pds/skeleton": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Backup\\" : "src/Backup"
+        }
+    },
+    "bin" : ["bin/backup"],
+    "minimum-stability": "stable"
+}
