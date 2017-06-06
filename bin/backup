@@ -15,4 +15,5 @@ $app = new Application('Database Backup', '0.0.1');
 // Init command
 $app->add(new Backup\Commands\InitCommand);
 
+$app->setAutoExit(true);
 $app->run();
