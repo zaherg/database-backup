@@ -4,10 +4,12 @@
     "type": "project",
     "require": {
         "league/flysystem": "^1.0",
+        "nesbot/carbon": "1.22.1",
         "roave/security-advisories": "dev-master",
         "symfony/console": "^3.3",
         "symfony/finder": "^3.3",
         "symfony/process": "^3.3",
+        "symfony/stopwatch": "^3.3",
         "symfony/yaml": "^3.3"
     },
     "license": "MIT",

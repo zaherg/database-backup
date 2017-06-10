@@ -28,7 +28,7 @@ class InitCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userInput = new SymfonyStyle($input, $output);
+        $userInput = $this->getIo($input, $output);
 
         if ($this->checkFileExists($userInput) === false) {
             $userInput->note('Nothing has changed, you configuration file is still the same');
@@ -102,7 +102,7 @@ class InitCommand extends Command
     private function saveData()
     {
         $this->save([
-            'database' => [
+            'database_server' => [
                 'host' => trim($this->host),
                 'port' => (int) trim($this->port),
                 'username' => trim($this->userName),
