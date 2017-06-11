@@ -35,6 +35,12 @@ class BackupCommand extends Command
                 "Please make sure that you have installed '{$this->tools}' locally.");
             exit;
         }
+
+        if (!$this->isConfigured()) {
+            $this->consoleOutput->error($this->getDateTime().
+                'Please run "backup init" first to create the configuration file.');
+            exit;
+        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

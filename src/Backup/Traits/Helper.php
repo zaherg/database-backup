@@ -28,4 +28,9 @@ trait Helper
     {
         return ' ['.Carbon::now()->toDateTimeString().'] ';
     }
+
+    protected function isConfigured()
+    {
+        return file_exists(__DIR__.'/config.yml');
+    }
 }
