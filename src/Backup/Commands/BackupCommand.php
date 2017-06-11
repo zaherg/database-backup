@@ -30,10 +30,7 @@ class BackupCommand extends Command
     {
         $this->stopWatch = new Stopwatch();
         $this->consoleOutput = $this->getIo($input, $output);
-    }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
-    {
         if (!$this->validateTools($this->tools)) {
             $this->consoleOutput->error($this->getDateTime().
                 "Please make sure that you have installed '{$this->tools}' locally.");
