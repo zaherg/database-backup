@@ -1,5 +1,5 @@
 {
-    "name": "zaher/database-backup",
+    "name": "damascene/database-backup",
     "description": "This is just a small CLI app which will create a backup from your database",
     "type": "project",
     "require": {
