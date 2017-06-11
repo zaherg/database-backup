@@ -1,6 +1,6 @@
 <?php namespace Backup\Commands;
 
-use Backup\Classes\BackupClass;
+use Backup\Classes\Backup;
 use Backup\Traits\Helper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -43,12 +43,12 @@ class BackupCommand extends Command
 
         $this->consoleOutput->section('<info>[INFO]</info> The process will start now.');
 
-        (new BackupClass($this->read()))->run();
+        (new Backup($this->read(), $this->consoleOutput))->run($input->getOption('database'));
 
         $endBackup = $this->stopWatch->stop('backup');
 
         $this->consoleOutput->text('<info>[INFO]</info> The process executed in <comment>' .
-            $endBackup->getDuration()/60 .' min</comment>.');
+            ($endBackup->getDuration()/60) .' sec</comment>.');
 
         $this->consoleOutput->success($this->getDateTime().' ＼（＾ ＾）／ everything was successfully executed.');
     }

@@ -8,16 +8,19 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Finder\Finder;
 
 class InitCommand extends Command
 {
     use Helper;
 
-    protected $host;
-    protected $port;
-    protected $userName;
-    protected $password;
-    protected $adapter;
+    private $host;
+    private $port;
+    private $userName;
+    private $password;
+    private $adapter;
+    private $compress;
+    private $userInput;
 
 
     protected function configure()
@@ -26,29 +29,34 @@ class InitCommand extends Command
             ->setDescription('This command will help you setup your project');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output)
     {
-        $userInput = $this->getIo($input, $output);
+        $this->getDriversList();
+        $this->userInput = $this->getIo($input, $output);
 
-        if ($this->checkFileExists($userInput) === false) {
-            $userInput->note('Nothing has changed, you configuration file is still the same');
+        if ($this->checkFileExists($this->userInput) === false) {
+            $this->userInput->note('Nothing has changed, you configuration file is still the same');
             exit;
         }
+    }
 
-        $userInput->section('We will start collect the information to create the config file');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $this->userInput->section('We will start collect the information to create the config file');
 
-        $this->getHostUrl($userInput);
-        $this->getHostPort($userInput);
-        $this->getHostUserName($userInput);
-        $this->getHostPassword($userInput);
-        $this->getAdapter($userInput);
+        $this->getHostUrl($this->userInput);
+        $this->getHostPort($this->userInput);
+        $this->getHostUserName($this->userInput);
+        $this->getHostPassword($this->userInput);
+        $this->getAdapter($this->userInput);
+        $this->shouldCompress($this->userInput);
 
-        if ($this->confirm($userInput)) {
+        if ($this->confirm($this->userInput)) {
             $this->saveData();
-            $userInput->success('We have created the configuration file successfully');
+            $this->userInput->success('We have created the configuration file successfully');
             exit;
         } else {
-            $userInput->note('You will have to run the command again to create the configuration file.');
+            $this->userInput->note('You will have to run the command again to create the configuration file.');
             exit;
         }
     }
@@ -87,9 +95,19 @@ class InitCommand extends Command
 
     private function getAdapter(SymfonyStyle $input)
     {
-        $question = new ChoiceQuestion('Which default adapter you want to use', ['local'], 0);
+        $driversInfo = $this->getDriversList();
+
+        $question = new ChoiceQuestion('Which default adapter you want to use',
+            $driversInfo['drivers'], $driversInfo['default']);
 
         $this->adapter = $input->askQuestion($question);
+    }
+
+    private function shouldCompress(SymfonyStyle $input)
+    {
+        $question = new ConfirmationQuestion('Should we compress the files after backup?', false);
+
+        $this->compress = $input->askQuestion($question);
     }
 
     private function confirm(SymfonyStyle $input)
@@ -110,7 +128,9 @@ class InitCommand extends Command
             ],
             'adapter' => [
                 'default' => trim($this->adapter)
-            ]
+            ],
+            'path' => getcwd().'/backup',
+            'compress' => (bool) trim($this->compress)
         ]);
     }
 
@@ -124,5 +144,23 @@ class InitCommand extends Command
         }
 
         return $overWrite;
+    }
+
+    private function getDriversList()
+    {
+        $finder = new Finder();
+        $finder->in(__DIR__.'/../Classes/Drivers')->files()->sortByName();
+        $iterator = $finder->getIterator();
+        $drivers = [];
+        foreach ($iterator as $item) {
+            $drivers[] = str_replace('backup.php', '', mb_strtolower($item->getBasename()));
+        }
+
+        $default = array_search('local', $drivers, true);
+
+        return [
+            'drivers' => $drivers,
+            'default' => $default
+        ];
     }
 }
