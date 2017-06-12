@@ -15,7 +15,7 @@ if (file_exists(__DIR__.'/../../../autoload.php')) {
 
 use Symfony\Component\Console\Application;
 
-$app = new Application('Database Backup', '0.0.4');
+$app = new Application('Database Backup', '0.0.5');
 
 // Init command
 $app->add(new Backup\Commands\InitCommand);
@@ -25,6 +25,8 @@ $app->add(new Backup\Commands\BackupCommand);
 
 // Package command
 $app->add(new Backup\Commands\PackageCommand);
+
+$app->add(new Backup\Commands\ListBackupCommand);
 
 $app->setAutoExit(true);
 $app->run();

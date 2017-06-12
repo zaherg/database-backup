@@ -2,3 +2,5 @@ vendor
 .idea
 .php_cs.cache
 config.yml
+/build/
+/backup/

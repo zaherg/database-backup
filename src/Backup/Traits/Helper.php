@@ -31,6 +31,6 @@ trait Helper
 
     protected function isConfigured()
     {
-        return file_exists(__DIR__.'/config.yml');
+        return file_exists(getcwd().'/config.yml');
     }
 }

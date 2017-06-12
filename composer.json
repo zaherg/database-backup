@@ -7,6 +7,7 @@
         "league/flysystem": "^1.0",
         "nesbot/carbon": "1.22.1",
         "roave/security-advisories": "dev-master",
+        "spatie/flysystem-dropbox": "^1.0",
         "symfony/console": "^3.3",
         "symfony/filesystem": "^3.3",
         "symfony/finder": "^3.3",
@@ -31,5 +32,21 @@
         }
     },
     "bin" : ["bin/backup"],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "extra": {
+        "phar-builder": {
+            "compression": "GZip",
+            "name": "backup.phar",
+            "output-dir": "./build",
+            "entry-point": "./bin/backup",
+            "include-dev": false,
+            "events": {
+                "build.before": "git describe --tags > bin/version.txt",
+                "build.after": [
+                    "rm bin/version.txt",
+                    "chmod +x build/builder.phar"
+                ]
+            }
+        }
+    }
 }

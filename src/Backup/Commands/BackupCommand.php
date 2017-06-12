@@ -19,7 +19,7 @@ class BackupCommand extends Command
 
     protected function configure()
     {
-        $this->setName('run')
+        $this->setName('db:run')
             ->setDescription('You can use this command to backup your database')
             ->addOption('database', 'd', InputOption::VALUE_OPTIONAL,
                 'Set the name for the database to backup', 'all');
@@ -54,7 +54,7 @@ class BackupCommand extends Command
         $endBackup = $this->stopWatch->stop('backup');
 
         $this->consoleOutput->text('<info>[INFO]</info> The process executed in <comment>' .
-            ($endBackup->getDuration()/60) .' sec</comment>.');
+            round($endBackup->getDuration()/60/60) .' min</comment>.');
 
         $this->consoleOutput->success($this->getDateTime().' ＼（＾ ＾）／ everything was successfully executed.');
     }

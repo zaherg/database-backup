@@ -14,6 +14,7 @@ class InitCommand extends Command
 {
     use Helper;
 
+    protected $dropboxKey;
     private $host;
     private $port;
     private $userName;
@@ -101,6 +102,10 @@ class InitCommand extends Command
             $driversInfo['drivers'], $driversInfo['default']);
 
         $this->adapter = $input->askQuestion($question);
+
+        if ($this->adapter === 'dropbox') {
+            $this->getDropboxKey($this->userInput);
+        }
     }
 
     private function shouldCompress(SymfonyStyle $input)
@@ -117,6 +122,14 @@ class InitCommand extends Command
         return $input->askQuestion($question);
     }
 
+    private function getDropboxKey(SymfonyStyle $input)
+    {
+        $question = new Question('Please type your Dropbox access token '.
+            '[<comment>More info</comment> visit https://www.dropbox.com/developers/apps ]');
+
+        $this->dropboxKey = $input->askQuestion($question);
+    }
+
     private function saveData()
     {
         $this->save([
@@ -130,7 +143,10 @@ class InitCommand extends Command
                 'default' => trim($this->adapter)
             ],
             'path' => getcwd().'/backup',
-            'compress' => (bool) trim($this->compress)
+            'compress' => (bool) trim($this->compress),
+            'dropbox' => [
+                'authKey' => trim($this->dropboxKey)
+            ],
         ]);
     }
 

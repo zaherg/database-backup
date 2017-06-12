@@ -1,10 +1,13 @@
 <?php namespace Backup\Classes\Drivers;
 
+use Backup\Traits\Backup;
 use Backup\Classes\Process;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 class LocalBackup
 {
+    use Backup;
+
     protected $consoleOutput;
     private $options;
 
@@ -12,6 +15,7 @@ class LocalBackup
     {
         $this->options = $options;
         $this->consoleOutput = $consoleOutput;
+        $this->createBackupFolder();
     }
 
     public function backup($databaseName)
@@ -25,10 +29,27 @@ class LocalBackup
         if ($this->options->compress) {
             $commands =[
                 "cd {$this->options->path}",
-                "tar -cvf {$databaseName}.sql.tar {$databaseName}.sql",
+                "tar -zcf {$databaseName}.sql.gz {$databaseName}.sql",
                 "rm -f  {$databaseName}.sql"
             ];
             (new Process())->execute(implode(' && ', $commands), $this->consoleOutput);
         }
+    }
+
+
+    public function listAll()
+    {
+        $content = $this->getDirectoryContent($this->getCwd().'/backup');
+        $items = [];
+        foreach ($content as $item) {
+            $items[] = $item->getRealPath();
+        }
+//        $allItems = collect($items)
+//            ->reject(function ($item) {
+//                return !strpos($item, '.gz');
+//            })->toArray();
+
+        $this->consoleOutput->section('You have the following files listed in your local backup');
+        $this->consoleOutput->listing($items);
     }
 }

@@ -1,6 +1,6 @@
 <?php namespace Backup\Classes;
 
-use Carbon\Carbon;
+use Backup\Traits\Backup as BackupHelper;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -14,6 +14,8 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class Backup
 {
+    use BackupHelper;
+
     protected $options = [];
     protected static $exclude = ['information_schema','performance_schema','Database'];
 
@@ -26,7 +28,6 @@ class Backup
     {
         $this->options = $options;
         $this->consoleOutput = $consoleOutput;
-        $this->createBackupFolder();
         $this->className = '\\Backup\\Classes\\Drivers\\'.ucwords($this->options->adapter->default).'Backup';
     }
 
@@ -46,6 +47,11 @@ class Backup
         return true;
     }
 
+    public function listAll()
+    {
+        return (new $this->className($this->options, $this->consoleOutput))->listAll();
+    }
+
     protected function getDatabases()
     {
         $databases = "mysql -h{$this->options->database_server->host} -u{$this->options->database_server->username}".
@@ -56,17 +62,5 @@ class Backup
             ->reject(function ($item) {
                 return in_array($item, self::$exclude, true) || $item === '';
             });
-    }
-
-    private function createBackupFolder()
-    {
-        $fileSystem = new FileSystem();
-        $date = Carbon::today()->format('Y-m-d');
-
-        if (!$fileSystem->exists(getcwd().'/backup/'.$date)) {
-            $fileSystem->mkdir(getcwd().'/backup/'.$date, 0755);
-        }
-
-        $this->options->path ="{$this->options->path}/{$date}";
     }
 }

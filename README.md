@@ -41,32 +41,13 @@ You will be asked for few questions which the app is going to use them later.
 2. You can start the backup process using the command:
 
 ```bash
-backup run --database my_database_name
+backup db:run --database my_database_name
 ```
 
 if you didn't pass the database parameter it will backup all the databases.
 
-## Create new Drivers
+3. you can list all the backup files that you have using the command:
 
-Right now the app will backup your database locally, 
-but you can create a new adapter or driver simply by creating a new class inside `/src/Backup/Classes/Drivers`, 
-but you will need to name it carefully, as the backup class will automatically load the classes based on the driver name.
-
-Driver name should take the format of `{DriverName}Backup.php`, so the value for the adapter should be the lower case of
-`{DriverName}`.
-
-So let's say you have created a driver for Amazon S3, you will call your class `S3Backup.php`, and the system will pickup 
-the name automatically and convert it to `s3` so in the `config.yml` file all you have to do is to change:
-
-```yaml
-adapter:
-    default: local
+```bash
+backup db:list
 ```
-
-to
-
-```yaml
-adapter:
-    default: s3
-```
-or you can simply run the initiate command again to regenerate the config file, and you will notice that your new driver will automatically be listed.
