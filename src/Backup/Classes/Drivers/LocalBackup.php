@@ -44,10 +44,6 @@ class LocalBackup
         foreach ($content as $item) {
             $items[] = $item->getRealPath();
         }
-//        $allItems = collect($items)
-//            ->reject(function ($item) {
-//                return !strpos($item, '.gz');
-//            })->toArray();
 
         $this->consoleOutput->section('You have the following files listed in your local backup');
         $this->consoleOutput->listing($items);
