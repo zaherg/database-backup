@@ -12,12 +12,23 @@ PS: This work was inspired by many people around me, especially [backmeup](https
 
 ## Installation
 
+### Requirement
+
+Remember that you need to have composer installed locally, if its not installed locally you can get it from [getcomposer.org](https://getcomposer.org/)
+
 ### Via git clone
 
 Right now the best way to install it is to clone the repository
 
 ```git
 git clone https://github.com/linuxjuggler/database-backup.git
+```
+
+then execute the following commands
+
+```bash
+cd database-backup
+composer install
 ```
 
 ### Via composer
@@ -28,26 +39,36 @@ You can install it using composer by executing the following command:
 composer create-project damascene/database-backup
 ```
 
-## Usage
+### Via composer (globally)
 
-1. You should create the configuration file using the command:
+You can install it using composer by executing the following command:
 
 ```bash
-backup init
+composer global require damascene/database-backup
+```
+
+_PS: if you run it globally you can just use `backup` instead of `./bin/backup`._
+
+## Usage
+
+- You should create the configuration file using the command:
+
+```bash
+./bin/backup init
 ```
 
 You will be asked for few questions which the app is going to use them later.
 
-2. You can start the backup process using the command:
+- You can start the backup process using the command:
 
 ```bash
-backup db:run --database my_database_name
+./bin/backup db:run --database my_database_name
 ```
 
 if you didn't pass the database parameter it will backup all the databases.
 
-3. you can list all the backup files that you have using the command:
+- you can list all the backup files that you have using the command:
 
 ```bash
-backup db:list
+./bin/backup db:list
 ```
