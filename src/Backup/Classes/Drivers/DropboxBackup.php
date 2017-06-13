@@ -44,15 +44,7 @@ class DropboxBackup
 
     public function listAll()
     {
-        $content = $this->filesystem->listContents('/backup', true);
-        $items = [];
-        foreach ($content as $item) {
-            $items[] = $item['path'];
-        }
-        $allItems = collect($items)
-            ->reject(function ($item) {
-                return !strpos($item, '.gz');
-            })->toArray();
+        $allItems = $this->retriveItems('/backup');
 
         $this->consoleOutput->section('You have the following files listed in your Dropbox backup');
         $this->consoleOutput->listing($allItems);

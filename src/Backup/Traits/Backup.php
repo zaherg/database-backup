@@ -42,4 +42,19 @@ trait Backup
     {
         (new Filesystem)->remove("{$this->getCwd()}/backup");
     }
+
+    private function retriveItems($directory)
+    {
+        $content = $this->filesystem->listContents($directory, true);
+        $items = [];
+
+        foreach ($content as $item) {
+            $items[] = $item['path'];
+        }
+
+        return collect($items)
+            ->reject(function ($item) {
+                return !strpos($item, '.gz');
+            })->toArray();
+    }
 }
