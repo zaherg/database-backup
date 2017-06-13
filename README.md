@@ -72,3 +72,29 @@ if you didn't pass the database parameter it will backup all the databases.
 ```bash
 ./bin/backup db:list
 ```
+
+## Upgrade
+
+Based on how you have install it you can run one of the following commands:
+
+- If installed via git:
+
+from within your code directory run:
+
+```git
+git pull origin master
+```
+
+- If installed via composer:
+
+from within your code directory run:
+
+```bash
+composer update
+```
+
+- If installed via composer globally:
+
+```bash
+composer global update
+```
