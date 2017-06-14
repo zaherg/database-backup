@@ -40,7 +40,8 @@ class InitCommand extends Command
 
     protected function configure()
     {
-        $this->setName('init')
+        $this->setName('config:init')
+            ->setAliases(['init'])
             ->setDescription('This command will help you setup your project');
     }
 
