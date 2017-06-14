@@ -14,7 +14,8 @@ class ListBackupCommand extends Command
 
     protected function configure()
     {
-        $this->setName('db:list');
+        $this->setName('db:list')
+             ->setDescription('This command will list all the files in the backup directory.');
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
