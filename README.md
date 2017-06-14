@@ -10,6 +10,12 @@ PS: This work was inspired by many people around me, especially [backmeup](https
   So to make the story short this is what I have done so far, this is just a small backup cli app that you can use on 
   your server and run it via cron jobs to create a backup for all your databases or for one of them if you pass it as a parameter.
 
+## Currently implemented backup drivers:
+
+1. Local backup.
+2. Dropbox.
+3. Amazon.
+
 ## Installation
 
 ### Requirement
