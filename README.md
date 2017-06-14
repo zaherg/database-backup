@@ -98,3 +98,5 @@ composer update
 ```bash
 composer global update
 ```
+
+- Finally check the file `config.yml.example` for the new updates if you don't want to use the `init` command.

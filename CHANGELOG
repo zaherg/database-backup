@@ -1,5 +1,9 @@
 # Change Log
 
+[V0.0.6]
+* added the ability to backup your data to Amazon S3.
+* added an example config file that you can use to update your config file.
+
 [v0.0.5]
 * Added the ability to backup your data to dropbox.
 * Added the ability to list the content of the backup directory.
