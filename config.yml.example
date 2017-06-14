@@ -1,0 +1,16 @@
+database_server:
+    host: 127.0.0.1
+    port: 3306
+    username: root
+    password: root
+adapter:
+    default: local
+path:
+compress: true
+dropbox:
+    authKey:
+amazon:
+    bucket:
+    key:
+    secret:
+    region:

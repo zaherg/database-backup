@@ -14,13 +14,27 @@ class InitCommand extends Command
 {
     use Helper;
 
-    protected $dropboxKey;
+    private $dropboxKey;
+
+    private static $amazon = [
+        'key' => '',
+        'secret' => '',
+        'bucket' => '',
+        'region' => ''
+    ];
+
     private $host;
+
     private $port;
+
     private $userName;
+
     private $password;
+
     private $adapter;
+
     private $compress;
+
     private $userInput;
 
 
@@ -103,8 +117,13 @@ class InitCommand extends Command
 
         $this->adapter = $input->askQuestion($question);
 
-        if ($this->adapter === 'dropbox') {
-            $this->getDropboxKey($this->userInput);
+        switch ($this->adapter) {
+            case 'dropbox':
+                $this->getDropboxKey($this->userInput);
+                break;
+            case 'amazon':
+                $this->getAmazon($this->userInput);
+                break;
         }
     }
 
@@ -130,6 +149,37 @@ class InitCommand extends Command
         $this->dropboxKey = $input->askQuestion($question);
     }
 
+    private function getAmazon(SymfonyStyle $input)
+    {
+        $keyQuestion = new Question('Please type your Amazon key');
+        self::$amazon['key'] = $input->askQuestion($keyQuestion);
+
+        $secretQuestion = new Question('Please type your Amazon secret');
+        self::$amazon['secret'] = $input->askQuestion($secretQuestion);
+
+        $bucketQuestion = new Question('Please type your Amazon bucket name');
+        self::$amazon['bucket'] = $input->askQuestion($bucketQuestion);
+
+        $regionQuestion = new ChoiceQuestion('Please type your Amazon region name',
+            [
+                'us-east-2'=> 'US East (Ohio)',
+                'us-east-1'=> 'US East (N. Virginia)',
+                'us-west-1'=> 'US West (N. California)',
+                'us-west-2'=> 'US West (Oregon)',
+                'ca-central-1'=> 'Canada (Central)',
+                'ap-south-1'=> 'Asia Pacific (Mumbai)',
+                'ap-northeast-2'=> 'Asia Pacific (Seoul)',
+                'ap-southeast-1'=> 'Asia Pacific (Singapore)',
+                'ap-southeast-2'=> 'Asia Pacific (Sydney)',
+                'ap-northeast-1'=> 'Asia Pacific (Tokyo)',
+                'eu-central-1'=> 'EU (Frankfurt)',
+                'eu-west-1'=> 'EU (Ireland)',
+                'eu-west-2'=> 'EU (London)',
+                'sa-east-1'=> 'South America (Sao Paulo)',
+            ], 'us-east-2');
+        self::$amazon['region'] = $input->askQuestion($regionQuestion);
+    }
+
     private function saveData()
     {
         $this->save([
@@ -147,6 +197,7 @@ class InitCommand extends Command
             'dropbox' => [
                 'authKey' => trim($this->dropboxKey)
             ],
+            'amazon' => self::$amazon,
         ]);
     }
 

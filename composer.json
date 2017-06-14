@@ -5,6 +5,7 @@
     "require": {
         "php": ">=7.0.0",
         "league/flysystem": "^1.0",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "nesbot/carbon": "1.22.1",
         "roave/security-advisories": "dev-master",
         "spatie/flysystem-dropbox": "^1.0",
