@@ -54,9 +54,15 @@ class Backup
 
     protected function getDatabases()
     {
-        $databases = "mysql -h{$this->options->database_server->host} -u{$this->options->database_server->username}".
-            " -p{$this->options->database_server->password} -P{$this->options->database_server->port} ".
-            '-e "SHOW DATABASES;" | awk \'{print $1;}\' ';
+        $commandTemplate = 'mysql -h%s -u%s -p%s -P%d -e "SHOW DATABASES;" | awk \'{print $1;}\' ';
+
+        $databases = sprintf(
+            $commandTemplate,
+            $this->options->database_server->host,
+            $this->options->database_server->username,
+            $this->options->database_server->password,
+            $this->options->database_server->port
+        );
 
         return collect((new Process())->getOutput($databases))
             ->reject(function ($item) {

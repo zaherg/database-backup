@@ -25,6 +25,7 @@
         }
     ],
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.3",
         "pds/skeleton": "~1.0"
     },
     "autoload": {

@@ -20,17 +20,25 @@ class LocalBackup
 
     public function backup($databaseName)
     {
-        $command = "mysqldump -h{$this->options->database_server->host} -u{$this->options->database_server->username}".
-            " -p{$this->options->database_server->password} -P{$this->options->database_server->port} ".
-            "{$databaseName} > {$this->options->path}/{$databaseName}.sql";
+        $commandTemplate = 'mysqldump -h%1$s -u%2$s -p%3$s -P%4$d %5$s > %6$s/%5$s.sql';
+
+        $command = sprintf(
+            $commandTemplate,
+            $this->options->database_server->host,
+            $this->options->database_server->username,
+            $this->options->database_server->password,
+            $this->options->database_server->port,
+            $databaseName,
+            $this->options->path
+        );
 
         (new Process())->execute($command, $this->consoleOutput);
 
         if ($this->options->compress) {
             $commands =[
-                "cd {$this->options->path}",
-                "tar -zcf {$databaseName}.sql.gz {$databaseName}.sql",
-                "rm -f  {$databaseName}.sql"
+                sprintf('cd $s', $this->options->path),
+                sprintf('tar -zcf %1$s.sql.gz %1$s.sql', $databaseName),
+                sprintf('rm -f %s.sql', $databaseName)
             ];
             (new Process())->execute(implode(' && ', $commands), $this->consoleOutput);
         }
