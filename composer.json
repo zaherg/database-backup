@@ -40,13 +40,13 @@
             "compression": "GZip",
             "name": "backup.phar",
             "output-dir": "./build",
-            "entry-point": "./bin/backup",
+            "entry-point": "bin/backup",
             "include-dev": false,
             "events": {
                 "build.before": "git describe --tags > bin/version.txt",
                 "build.after": [
                     "rm bin/version.txt",
-                    "chmod +x build/builder.phar"
+                    "chmod +x build/backup.phar"
                 ]
             }
         }

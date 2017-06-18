@@ -15,7 +15,7 @@ if (file_exists(__DIR__.'/../../../autoload.php')) {
 
 use Symfony\Component\Console\Application;
 
-$app = new Application('Database Backup', '0.0.7');
+$app = new Application('Database Backup', '0.0.8');
 
 // Config related commands
 $app->add(new Backup\Commands\InitCommand);

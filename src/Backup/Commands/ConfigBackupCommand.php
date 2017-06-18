@@ -21,8 +21,10 @@ class ConfigBackupCommand extends Command
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->consoleOutput = $this->getIo($input, $output);
+
         if (!$this->isConfigured()) {
-            $this->consoleOutput->error('This command will work only if you have already configured the backup.');
+            $this->consoleOutput->error($this->getDateTime().
+                'This command will work only if you have already configured the backup.');
             exit;
         }
     }

@@ -21,6 +21,12 @@ class ListBackupCommand extends Command
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->consoleOutput = $this->getIo($input, $output);
+
+        if (!$this->isConfigured()) {
+            $this->consoleOutput->error($this->getDateTime().
+                'Please run "backup init" first to create the configuration file.');
+            exit;
+        }
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
