@@ -34,21 +34,5 @@
         }
     },
     "bin" : ["bin/backup"],
-    "minimum-stability": "stable",
-    "extra": {
-        "phar-builder": {
-            "compression": "GZip",
-            "name": "backup.phar",
-            "output-dir": "./build",
-            "entry-point": "bin/backup",
-            "include-dev": false,
-            "events": {
-                "build.before": "git describe --tags > bin/version.txt",
-                "build.after": [
-                    "rm bin/version.txt",
-                    "chmod +x build/backup.phar"
-                ]
-            }
-        }
-    }
+    "minimum-stability": "stable"
 }
