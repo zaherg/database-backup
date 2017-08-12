@@ -4,11 +4,7 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "league/flysystem": "^1.0",
-        "league/flysystem-aws-s3-v3": "^1.0",
         "nesbot/carbon": "1.22.1",
-        "roave/security-advisories": "dev-master",
-        "spatie/flysystem-dropbox": "^1.0",
         "symfony/console": "^3.3",
         "symfony/filesystem": "^3.3",
         "symfony/finder": "^3.3",
@@ -26,7 +22,13 @@
     ],
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.3",
-        "pds/skeleton": "~1.0"
+        "pds/skeleton": "~1.0",
+        "roave/security-advisories": "dev-master"
+    },
+    "suggest":{
+        "league/flysystem": "Required to use the remote backup with S3 or Dropbox (~1.0).",
+        "league/flysystem-aws-s3-v3": "Required to use the Flysystem S3 driver (~1.0).",
+        "spatie/flysystem-dropbox": "Required to use the Flysystem Dropbox driver (~1.0)."
     },
     "autoload": {
         "psr-4": {
