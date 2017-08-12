@@ -113,8 +113,11 @@ class InitCommand extends Command
     {
         $driversInfo = $this->getDriversList();
 
-        $question = new ChoiceQuestion('Which default adapter you want to use',
-            $driversInfo['drivers'], $driversInfo['default']);
+        $question = new ChoiceQuestion(
+            'Which default adapter you want to use',
+            $driversInfo['drivers'],
+            $driversInfo['default']
+        );
 
         $this->adapter = $input->askQuestion($question);
 
@@ -147,6 +150,9 @@ class InitCommand extends Command
         $question = new Question('Please type your Dropbox access token '.
             '[<comment>More info</comment> visit https://www.dropbox.com/developers/apps ]');
 
+        // try to remind the user that he needs to install the required libraries.
+        $input->note('Make sure that you have installed (or going to install) the required flysystem libraries.');
+
         $this->dropboxKey = $input->askQuestion($question);
     }
 
@@ -161,23 +167,27 @@ class InitCommand extends Command
         $bucketQuestion = new Question('Please type your Amazon bucket name');
         self::$amazon['bucket'] = $input->askQuestion($bucketQuestion);
 
-        $regionQuestion = new ChoiceQuestion('Please type your Amazon region name',
-            [
-                'us-east-2'=> 'US East (Ohio)',
-                'us-east-1'=> 'US East (N. Virginia)',
-                'us-west-1'=> 'US West (N. California)',
-                'us-west-2'=> 'US West (Oregon)',
-                'ca-central-1'=> 'Canada (Central)',
-                'ap-south-1'=> 'Asia Pacific (Mumbai)',
-                'ap-northeast-2'=> 'Asia Pacific (Seoul)',
-                'ap-southeast-1'=> 'Asia Pacific (Singapore)',
-                'ap-southeast-2'=> 'Asia Pacific (Sydney)',
-                'ap-northeast-1'=> 'Asia Pacific (Tokyo)',
-                'eu-central-1'=> 'EU (Frankfurt)',
-                'eu-west-1'=> 'EU (Ireland)',
-                'eu-west-2'=> 'EU (London)',
-                'sa-east-1'=> 'South America (Sao Paulo)',
-            ], 'us-east-2');
+        $s3Origin = [
+            'us-east-2'=> 'US East (Ohio)',
+            'us-east-1'=> 'US East (N. Virginia)',
+            'us-west-1'=> 'US West (N. California)',
+            'us-west-2'=> 'US West (Oregon)',
+            'ca-central-1'=> 'Canada (Central)',
+            'ap-south-1'=> 'Asia Pacific (Mumbai)',
+            'ap-northeast-2'=> 'Asia Pacific (Seoul)',
+            'ap-southeast-1'=> 'Asia Pacific (Singapore)',
+            'ap-southeast-2'=> 'Asia Pacific (Sydney)',
+            'ap-northeast-1'=> 'Asia Pacific (Tokyo)',
+            'eu-central-1'=> 'EU (Frankfurt)',
+            'eu-west-1'=> 'EU (Ireland)',
+            'eu-west-2'=> 'EU (London)',
+            'sa-east-1'=> 'South America (Sao Paulo)',
+        ];
+
+        // try to remind the user that he needs to install the required libraries.
+        $input->note('Make sure that you have installed (or going to install) the required flysystem libraries.');
+
+        $regionQuestion = new ChoiceQuestion('Please type your Amazon region name', $s3Origin, 'us-east-2');
         self::$amazon['region'] = $input->askQuestion($regionQuestion);
     }
 
