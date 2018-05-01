@@ -36,7 +36,7 @@ class LocalBackup
 
         if ($this->options->compress) {
             $commands =[
-                sprintf('cd $s', $this->options->path),
+                sprintf('cd %s', $this->options->path),
                 sprintf('tar -zcf %1$s.sql.gz %1$s.sql', $databaseName),
                 sprintf('rm -f %s.sql', $databaseName)
             ];
