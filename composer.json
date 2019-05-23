@@ -4,7 +4,7 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "nesbot/carbon": "1.22.1",
+        "nesbot/carbon": "2.18.0",
         "symfony/console": "^4.0",
         "symfony/filesystem": "^4.0",
         "symfony/finder": "^4.0",
