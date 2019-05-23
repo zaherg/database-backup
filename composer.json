@@ -21,7 +21,7 @@
         }
     ],
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "@stable",
+        "friendsofphp/php-cs-fixer": "^2.15.0",
         "pds/skeleton": "~1.0",
         "roave/security-advisories": "dev-master"
     },
