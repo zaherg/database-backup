@@ -28,11 +28,11 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
 
-     - name: Cache dependencies
-       uses: actions/cache@v1
-       with:
-         path: ~/.composer/cache/files
-         key: php-${{ matrix.php-versions }}-composer-${{ hashFiles('composer.json') }}
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: php-${{ matrix.php-versions }}-composer-${{ hashFiles('composer.json') }}          
 
       - name: Composer install
         run: composer install  --prefer-dist --no-progress --no-suggest
