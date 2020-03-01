@@ -23,7 +23,7 @@ jobs:
           php-version: '7.4'
 
       - name: Composer install
-        run: composer install
+        run: composer install  --prefer-dist --no-progress --no-suggest
 
       - name: Determine tag
         id: determine-tag
