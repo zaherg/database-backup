@@ -1,0 +1,19 @@
+{
+    "chmod": "0755",
+    "compression": "GZ",
+    "compactors": [
+        "Herrera\\Box\\Compactor\\Php",
+        "Herrera\\Box\\Compactor\\Json"
+    ],    
+    "directories": [
+        "bin",
+        "src",
+        "vendor"
+    ],
+    "exclude-composer-files": false,    
+    "files": [
+        "composer.json",
+        "config.yml.example"
+    ],
+    "output" : "build/backup"
+}

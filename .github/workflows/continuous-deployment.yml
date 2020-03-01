@@ -1,0 +1,52 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Continuous Deployment"
+
+on:
+  push:
+    tags:
+      - "**"
+
+jobs:
+  release:
+    name: "Release"
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Determine tag
+        id: determine-tag
+        run: echo \"::set-output name=tag::${GITHUB_REF#refs/tags/}\"
+      
+      - name: Build project
+        run: php -d phar.readonly=false ./vendor/bin/box compile
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.determine-tag.outputs.tag }}
+          tag_name: ${{ steps.determine-tag.outputs.tag }}
+
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/backup
+          asset_name: backup
+          asset_content_type: application/zip

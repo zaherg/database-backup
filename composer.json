@@ -2,6 +2,7 @@
     "name": "damascene/database-backup",
     "description": "This is just a small CLI app which will create a backup from your database",
     "type": "project",
+    "version" : "0.1.3",
     "require": {
         "php": ">=7.0.0",
         "nesbot/carbon": "1.22.1",
@@ -23,7 +24,8 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.15.0",
         "pds/skeleton": "~1.0",
-        "roave/security-advisories": "dev-master"
+        "roave/security-advisories": "dev-master",
+        "humbug/box": "^3.8"
     },
     "suggest":{
         "league/flysystem": "Required to use the remote backup with S3 or Dropbox (~1.0).",
