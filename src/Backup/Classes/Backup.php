@@ -17,7 +17,7 @@ class Backup
     use BackupHelper;
 
     protected $options = [];
-    protected static $exclude = ['information_schema','performance_schema','Database'];
+    protected static $exclude = ['information_schema','performance_schema','Database', 'mysql'];
 
     /**
      * BackupClass constructor.
@@ -34,11 +34,14 @@ class Backup
     public function run($databaseName)
     {
         if ($databaseName === 'all') {
+
             $names = $this->getDatabases();
+
             $names->each(function ($item) {
-                $class = new $this->className($this->options, $this->consoleOutput);
-                $class->backup($item);
+                (new $this->className($this->options, $this->consoleOutput))
+                    ->backup($item);
             });
+
         } else {
             (new $this->className($this->options, $this->consoleOutput))
                 ->backup($databaseName);

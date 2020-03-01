@@ -106,3 +106,7 @@ composer global update
 ```
 
 - Finally check the file `config.yml.example` for the new updates if you don't want to use the `init` command.
+
+# TODO
+
+1. [ ] Add Tests

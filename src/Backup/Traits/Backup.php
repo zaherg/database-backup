@@ -11,9 +11,9 @@ trait Backup
         return (new Finder)->in($directory)->files()->getIterator();
     }
 
-    protected function getDate()
+    protected function getDate($format = 'Y-m-d')
     {
-        return Carbon::now()->format('Y-m-d');
+        return Carbon::now()->format($format);
     }
 
     protected function getCwd()
