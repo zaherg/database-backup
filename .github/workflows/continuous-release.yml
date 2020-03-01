@@ -36,6 +36,9 @@ jobs:
 
       - name: Composer install
         run: composer install  --prefer-dist --no-progress --no-suggest
+
+      - name: Install additional dependencies
+        run: composer require league/flysystem league/flysystem-aws-s3-v3 spatie/flysystem-dropbox
       
       - name: Build project
         run: composer run build

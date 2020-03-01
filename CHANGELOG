@@ -1,5 +1,8 @@
 # Change Log
 
+[v0.1.6]
+* Install all dependencies for the creation of the phar file even the suggested.
+
 [v0.1.5]
 * we now prefix the file name with the time.
 * we release a phar version of the application.

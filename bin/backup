@@ -5,7 +5,7 @@ require __DIR__.'/../src/bootstrap.php';
 
 use Symfony\Component\Console\Application;
 
-$app = new Application('Database Backup', '0.1.5');
+$app = new Application('Database Backup', '0.1.6');
 
 // Config related commands
 $app->add(new Backup\Commands\InitCommand);
