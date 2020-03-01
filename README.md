@@ -57,7 +57,7 @@ _PS: if you run it globally you can just use `backup` instead of `./bin/backup`.
 
 ### Using the phar file
 
-We distribute a PHP Archive (PHAR) that has all required dependencies of database backup bundled in a single file.
+We distribute a PHP Archive (PHAR) that has all dependencies (including the suggested) of database backup bundled in a single file.
 You can find the file under the assets of each [release](https://github.com/linuxjuggler/database-backup/releases).
 
 After downloading the file remember to run the following commands:
