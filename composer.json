@@ -37,6 +37,9 @@
             "Backup\\" : "src/Backup"
         }
     },
+    "scripts": {
+        "build": "php -d phar.readonly=false ./vendor/bin/box compile",
+    },
     "bin" : ["bin/backup"],
     "minimum-stability": "stable"
 }

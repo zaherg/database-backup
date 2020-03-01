@@ -55,6 +55,18 @@ composer global require damascene/database-backup
 
 _PS: if you run it globally you can just use `backup` instead of `./bin/backup`._
 
+### Using the phar file
+
+We distribute a PHP Archive (PHAR) that has all required dependencies of database backup bundled in a single file.
+You can file the file under the assets of each [release](https://github.com/linuxjuggler/database-backup/releases).
+
+After downloading the file remember to run the following commands:
+
+```bash
+$ mv backup ./bin/backup
+$ chmod u+x backup
+```
+
 ## Usage
 
 - You should create the configuration file using the command:

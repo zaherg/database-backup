@@ -1,5 +1,9 @@
 # Change Log
 
+[v0.1.5]
+* we now prefix the file name with the time.
+* we release a phar version of the application.
+
 [V0.0.6]
 * added the ability to backup your data to Amazon S3.
 * added an example config file that you can use to update your config file.
