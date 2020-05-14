@@ -1,4 +1,4 @@
-# Database backup CLI app
+# Database backup CLI app  [![](https://img.shields.io/badge/sponsor-using%20BTC%20lightning%20network-blue.svg)](https://tippin.me/@zaherg)
 
 PS: This work was inspired by many people around me, especially [backmeup](https://github.com/Ardakilic/backmeup) which was created by [Arda Kılıçdağı](https://github.com/Ardakilic).
   
